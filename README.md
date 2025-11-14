@@ -76,7 +76,7 @@ The app also offers a Cognitive Behavioral Therapy (CBT) test to assist users in
 Clone the repository using 
 
 ```
-git clone <repository-url>
+git clone https://github.com/shauryaverma03 Mental-Health-Companion-App.git
 ```
 
 Install dependencies using 
