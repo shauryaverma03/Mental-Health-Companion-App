@@ -107,12 +107,11 @@ app -> flutter run
 
 ### Team Members 
 
-Final Year Students of Btech Computer Engineering - 
+Pre-Final Year Students of Btech Computer Engineering - 
 
-1. Nishant Dixit
-2. Rachit Tandale
-3. Om Bothre
-4. Sahil Sasane
+1. Shaurya Verma
+2. Sachin
+3. Mayank
 
 We have created Vayu with our own touch and preferences. Watching many of our close one's into depression is something which can bother any one. This project is close to us and also would be to you!
 
