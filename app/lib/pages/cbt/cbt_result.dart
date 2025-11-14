@@ -70,7 +70,7 @@ class CBTResultPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('CBT Results'),
-        backgroundColor: Colors.teal[300],
+        backgroundColor: Colors.blue[300],
         foregroundColor: Colors.white,
       ),
       body: Padding(
