@@ -8,9 +8,6 @@
 
 ![Image](readmeImages/vayu.png)
   
-  <h3>
-    Google GenAI 2024 Solution
-  </h3>
   <hr>
 </div>
 
