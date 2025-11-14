@@ -12,11 +12,39 @@ Future<void> main() async {
   } catch (e) {
     print("Firebase initialization error: $e");
   }
-  runApp(MaterialApp(
-    title: 'GenAI',
-    theme:
-        ThemeData(scaffoldBackgroundColor: Colors.white, fontFamily: 'Poppins'),
-    debugShowCheckedModeBanner: false,
-    home: HeroPage(),
-  ));
+
+  runApp(
+    MaterialApp(
+      title: 'GenAI',
+      // Keep your original font; make scaffold background transparent so the
+      // global gradient (below) shows through.
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.transparent,
+        fontFamily: 'Poppins',
+      ),
+      debugShowCheckedModeBanner: false,
+
+      // Wrap every route with a full-screen gradient so you don't need to edit
+      // each page. This is the minimal change — all other code left intact.
+      builder: (BuildContext context, Widget? child) {
+        return Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF9ED8F6), // top — soft sky blue
+                Color(0xFFE8F8FC), // mid — very light sky tint
+                Colors.white,      // bottom — white
+              ],
+              stops: [0.0, 0.6, 1.0],
+            ),
+          ),
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
+
+      home: HeroPage(),
+    ),
+  );
 }

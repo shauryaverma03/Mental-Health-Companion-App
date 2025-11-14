@@ -43,7 +43,7 @@ class BlogScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.teal[100]!,
+              Colors.blue[300]!,
               Colors.teal[100]!,
             ],
           ),

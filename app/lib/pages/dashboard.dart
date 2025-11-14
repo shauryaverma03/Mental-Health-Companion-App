@@ -65,8 +65,8 @@ class _DashboardPageState extends State<DashboardPage> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
+              Colors.blue[300]!,
               Colors.teal[100]!,
-              Colors.grey[200]!,
             ],
           ),
         ),
@@ -96,7 +96,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Hello Rachit!',
+                                            'Hello Shaurya!',
                                             style: TextStyle(
                                               color: Colors.teal[600],
                                               fontSize: 24,
@@ -260,7 +260,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                   const EdgeInsets.fromLTRB(
                                                       18.0, 0, 0, 0),
                                               child: Text(
-                                                'Pepo loves to talk!',
+                                                'Panda loves to talk!',
                                                 style: TextStyle(
                                                   color: Colors.teal[600],
                                                   fontSize: 22,
@@ -298,7 +298,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      'Chat with Pepo',
+                                                      'Chat with Panda',
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 20),

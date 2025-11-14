@@ -79,8 +79,8 @@ class _HeroPageState extends State<HeroPage>
                   opacity: _opacityAnimation,
                   child: ScaleTransition(
                     scale: _scaleAnimation,
-                    child: SvgPicture.asset(
-                      'assets/svgs/welcome.svg',
+                    child: Image.asset(
+                      'assets/svgs/welcome.png',
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -101,8 +101,8 @@ class _HeroPageState extends State<HeroPage>
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(50, 20, 50, 20),
-                      backgroundColor: Colors.teal,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue[300],
+                      foregroundColor: Colors.teal[100],
                     ),
                     child: Text(
                       'Get Started',

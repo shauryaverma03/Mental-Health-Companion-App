@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:genai/pages/dashboard.dart';
 import 'package:genai/pages/post_details.dart';
 import 'package:genai/services/community_service.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:intl/intl.dart';
 

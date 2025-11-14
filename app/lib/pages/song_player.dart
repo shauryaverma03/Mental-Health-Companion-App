@@ -71,8 +71,8 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
+              Colors.blue[300]!,
               Colors.teal[100]!,
-              Colors.grey[200]!,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

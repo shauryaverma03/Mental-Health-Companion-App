@@ -75,8 +75,8 @@ class _ChatScreenState extends State<ChatScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.teal[100]!,
-                Colors.grey[200]!,
+                Colors.blue[300]!,
+              Colors.teal[100]!,
               ],
             ),
           ),
