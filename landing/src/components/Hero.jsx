@@ -11,7 +11,7 @@ const Hero = () => {
             Being GenZ can be tough.
           </h1>
           <p className='max-w-md text-center text-gray-500 md:text-left'>
-            Manage your mental health with Vayu. Chat, Medidate, Breathe, read blogs, communicate and many more!
+            Manage your mental health with Saathi. Chat, Medidate, Breathe, read blogs, communicate and many more!
           </p>
           <div className='flex gap-2 justify-center md:justify-start'>
             <Link
@@ -30,7 +30,7 @@ const Hero = () => {
         </div>
         {/* Image */}
         <div className='md:w-1/3 flex items-center'>
-          <img src='welcome.svg' className='' alt='' />
+          <img src='wlc.png' className='' alt='' />
         </div>
       </div>
     </section>

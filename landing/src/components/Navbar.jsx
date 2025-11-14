@@ -13,7 +13,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className='pt-2 flex items-center gap-3'>
           <img src='otter.gif' className='h-10' alt='' />
-          <h1 className='text-2xl font-bold'>Vayu</h1>
+          <h1 className='text-2xl font-bold'>Saathi</h1>
         </div>
         {/* Menu Items */}
         <div className='hidden space-x-6 md:flex'>
