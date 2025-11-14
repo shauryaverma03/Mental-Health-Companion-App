@@ -17,7 +17,7 @@ const Navbar = () => {
         </div>
         {/* Menu Items */}
         <div className='hidden space-x-6 md:flex'>
-         <p>✨ For Google <span className='text-blue-800'> GenAI</span> Hackathon 2024 ✨</p>
+         <p>✨ For Code <span className='text-blue-800'> Carvan</span> Hackathon 2025 ✨</p>
         </div>
         {/* Button */}
         <Link
