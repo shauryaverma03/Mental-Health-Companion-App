@@ -8,12 +8,17 @@ const Footer = () => {
         {/* Logo and social links container */}
         <div className='flex flex-col-reverse items-center justify-between space-y-12 md:flex-col md:space-y-0 md:items-start'>
           <div className='mx-auto my-6 text-center text-[#16a1a8] md:hidden'>
-            Copyright © 2024, All Rights Reserved
+            Copyright © 2025, All Rights Reserved
           </div>
           {/* Logo */}
           <div>
-            <img src='otter.gif' className='h-8' alt='Company Logo' />
-            <p className='text-xl font-bold'>Vayu </p>
+            <img
+              src='otterChat.png'
+              className='h-16 md:h-24 w-auto object-contain'
+              alt='Saathi logo'
+              aria-label='Saathi logo'
+            />
+            <p className='text-xl font-bold'>Saathi </p>
           </div>
           {/* Social Links Container */}
         </div>
@@ -61,7 +66,7 @@ const Footer = () => {
             </div>
           </form>
           <div className='hidden text-black md:block'>
-            Copyright © 2024, All Rights Reserved
+            Copyright © 2025, All Rights Reserved
           </div>
         </div>
       </div>
