@@ -150,7 +150,7 @@ class _TypeState extends State<Type> {
               ),
             );
           },
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.blue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),

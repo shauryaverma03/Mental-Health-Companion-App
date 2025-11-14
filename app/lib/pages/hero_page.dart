@@ -48,7 +48,7 @@ class _HeroPageState extends State<HeroPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[50],
+      backgroundColor: Colors.blue[50],
       appBar: AppBar(
         title: Text(
           '',
@@ -64,8 +64,8 @@ class _HeroPageState extends State<HeroPage>
             children: [
               SizedBox(height: 20),
               Text(
-                "Welcome to Vayu",
-                style: TextStyle(fontSize: 30, color: Colors.teal),
+                "Welcome to Saathi",
+                style: TextStyle(fontSize: 30, color: Colors.blue[500]),
               ),
               SizedBox(height: 20),
               Text(
@@ -101,8 +101,8 @@ class _HeroPageState extends State<HeroPage>
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(50, 20, 50, 20),
-                      backgroundColor: Colors.blue[300],
-                      foregroundColor: Colors.teal[100],
+                      backgroundColor: Colors.blue[400],
+                      foregroundColor: Colors.white,
                     ),
                     child: Text(
                       'Get Started',

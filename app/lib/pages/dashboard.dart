@@ -98,7 +98,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                           Text(
                                             'Hello Shaurya!',
                                             style: TextStyle(
-                                              color: Colors.teal[600],
+                                              color: Colors.blue[800],
                                               fontSize: 24,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -152,7 +152,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                           borderRadius:
                                               BorderRadius.circular(40),
                                           border: Border.all(
-                                            color: Colors.teal.shade600,
+                                            color: Colors.blue.shade600,
                                             width: 2,
                                           ),
                                         ),
@@ -173,7 +173,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                               children: [
                                                 Icon(
                                                   Icons.sunny,
-                                                  color: Colors.teal,
+                                                  color: Colors.blue,
                                                 ),
                                                 SizedBox(
                                                   width: 8,
@@ -181,7 +181,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                 Text(
                                                   'Journal',
                                                   style: TextStyle(
-                                                      color: Colors.teal,
+                                                      color: Colors.blue,
                                                       fontSize: 20),
                                                 )
                                               ]),
@@ -198,7 +198,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                           borderRadius:
                                               BorderRadius.circular(40),
                                           border: Border.all(
-                                            color: Colors.teal.shade600,
+                                            color: Colors.blue.shade600,
                                             width: 2,
                                           ),
                                         ),
@@ -220,7 +220,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                               children: [
                                                 Icon(
                                                   Icons.select_all,
-                                                  color: Colors.teal,
+                                                  color: Colors.blue,
                                                 ),
                                                 SizedBox(
                                                   width: 8,
@@ -228,7 +228,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                 Text(
                                                   'Mood',
                                                   style: TextStyle(
-                                                      color: Colors.teal,
+                                                      color: Colors.blue,
                                                       fontSize: 20),
                                                 )
                                               ]),
@@ -262,7 +262,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                               child: Text(
                                                 'Panda loves to talk!',
                                                 style: TextStyle(
-                                                  color: Colors.teal[600],
+                                                  color: Colors.blue[800],
                                                   fontSize: 22,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -281,11 +281,11 @@ class _DashboardPageState extends State<DashboardPage> {
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: Colors.teal,
+                                                  color: Colors.blue[600],
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                   border: Border.all(
-                                                    color: Colors.teal.shade100,
+                                                    color: Colors.blue.shade100,
                                                     width: 2,
                                                   ),
                                                 ),
@@ -350,6 +350,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                         icon: Icons.self_improvement_sharp,
                                         label: 'Meditate',
                                         path: MeditationScreen()),
+                                        
                                     CardItem(
                                         icon: Icons.music_note,
                                         label: 'Music',
