@@ -65,7 +65,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
       appBar: AppBar(
         title: Text('Now Playing'),
         centerTitle: true,
-        backgroundColor: Colors.teal[100],
+        backgroundColor: Colors.blue[200],
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -100,7 +100,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.teal[800],
+                  color: Colors.blue[800],
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -108,7 +108,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
 
             // Music Player Controls
             Slider(
-              activeColor: Colors.teal,
+              activeColor: Colors.blue,
               inactiveColor: Colors.grey,
               min: 0.0,
               max: totalDuration.inSeconds.toDouble(),
@@ -123,11 +123,11 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
                 children: [
                   Text(
                     _formatDuration(currentPosition),
-                    style: TextStyle(color: Colors.teal),
+                    style: TextStyle(color: Colors.blue),
                   ),
                   Text(
                     _formatDuration(totalDuration),
-                    style: TextStyle(color: Colors.teal),
+                    style: TextStyle(color: Colors.blue),
                   ),
                 ],
               ),
@@ -137,7 +137,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
             IconButton(
               iconSize: 64,
               icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-              color: Colors.teal,
+              color: Colors.blue,
               onPressed: _togglePlayPause,
             ),
           ],

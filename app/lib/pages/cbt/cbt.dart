@@ -82,7 +82,7 @@ class _CBTTestPageState extends State<CBTTestPage> {
               inactiveTrackColor: Colors.grey[300],
               trackHeight: 15.0,
               thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
-              thumbColor: Colors.teal[900],
+              thumbColor: Colors.blue[900],
               overlayColor: Colors.white,
               overlayShape: RoundSliderOverlayShape(overlayRadius: 5.0),
               valueIndicatorColor: Colors.white,
@@ -97,7 +97,7 @@ class _CBTTestPageState extends State<CBTTestPage> {
               max: maxScale.toDouble(),
               divisions: maxScale,
               label: answerMap[question]!.toString(),
-              activeColor: Colors.teal,
+              activeColor: Colors.blue,
               onChanged: (value) {
                 setState(() {
                   answerMap[question] = value.toInt();
@@ -116,8 +116,8 @@ class _CBTTestPageState extends State<CBTTestPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('CBT Test'),
-        backgroundColor: Colors.teal[100],
-        foregroundColor: Colors.teal[900],
+        backgroundColor: Colors.blue[200],
+        foregroundColor: Colors.blue[900],
       ),
       body: Container(
         child: Padding(
@@ -142,7 +142,7 @@ class _CBTTestPageState extends State<CBTTestPage> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal[200],
+                    backgroundColor: Colors.blue[200],
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {

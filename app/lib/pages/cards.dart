@@ -42,7 +42,7 @@ class FlashCard extends StatelessWidget {
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.teal[100],
+          backgroundColor: Colors.blue[200],
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {

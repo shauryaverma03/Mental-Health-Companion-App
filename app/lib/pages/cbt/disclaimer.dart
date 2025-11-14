@@ -8,9 +8,9 @@ class Disclaimer extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'CBT Test Introduction',
-          style: TextStyle(color: Colors.teal[900]),
+          style: TextStyle(color: Colors.blue[900]),
         ),
-        backgroundColor: Colors.teal[100], // Teal AppBar
+        backgroundColor: Colors.blue[200], // Teal AppBar
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,7 +23,7 @@ class Disclaimer extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal.shade900, // Dark teal color for heading
+                color: Colors.blue.shade900, // Dark teal color for heading
               ),
             ),
             SizedBox(height: 20),
@@ -33,7 +33,7 @@ class Disclaimer extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 color: Colors
-                    .teal.shade800, // Slightly darker teal for paragraph text
+                    .blue.shade800, // Slightly darker teal for paragraph text
               ),
             ),
             SizedBox(height: 20),
@@ -41,7 +41,7 @@ class Disclaimer extends StatelessWidget {
               'Remember, there are no right or wrong answers. Just reflect on how you feel.',
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.teal.shade800,
+                color: Colors.blue.shade800,
               ),
             ),
             SizedBox(height: 40),
@@ -63,7 +63,7 @@ class Disclaimer extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                          Colors.teal[50], // Teal background for button
+                          Colors.blue[50], // blue background for button
                       foregroundColor: Colors.white, // White text color
                       padding:
                           EdgeInsets.symmetric(horizontal: 32, vertical: 16),
@@ -81,7 +81,7 @@ class Disclaimer extends StatelessWidget {
                     child: Text(
                       'Start Test',
                       style: TextStyle(
-                          color: Colors.teal[900],
+                          color: Colors.blue[900],
                           fontSize: 22,
                           fontWeight: FontWeight.w500),
                     ),

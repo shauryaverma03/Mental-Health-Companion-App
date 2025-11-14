@@ -42,7 +42,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Post Details'),
-        backgroundColor: Colors.teal[50],
+        backgroundColor: Colors.blue[50],
       ),
       body: Padding(
         padding: const EdgeInsets.all(0),
