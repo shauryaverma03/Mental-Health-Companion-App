@@ -6,13 +6,13 @@
 
   <br>
 
-![Image](readmeImages/vayu1.png)
+![Image](readmeImages/saathi1.png)
 
   <hr>
 </div>
 
 <h2>About This Project</h2>
-Vayu AI therapist offers a holistic approach to mental wellness through an intuitive and accessible digital platform. Our solution addresses common mental health challenges including depression, anxiety, and stress by providing diverse therapeutic tools and resources. Through a streamlined authentication process, users gain access to features like personal journaling, guided meditation sessions, and breathing techniques. The platform includes an anonymous community space where individuals can connect, share their journeys, and find mutual support. We've built this to be a safe haven where mental health can be nurtured and managed through personalized, convenient tools.
+Saathi AI therapist offers a holistic approach to mental wellness through an intuitive and accessible digital platform. Our solution addresses common mental health challenges including depression, anxiety, and stress by providing diverse therapeutic tools and resources. Through a streamlined authentication process, users gain access to features like personal journaling, guided meditation sessions, and breathing techniques. The platform includes an anonymous community space where individuals can connect, share their journeys, and find mutual support. We've built this to be a safe haven where mental health can be nurtured and managed through personalized, convenient tools.
 
 <h2>AI-Powered Therapy with Fine-Tuned Gemini</h2>
 
@@ -43,10 +43,10 @@ Beyond self-care tools, we've incorporated a Cognitive Behavioral Therapy (CBT) 
 ![Image](readmeImages/architecture.png)
 
 <br>
-<h2>Meet Pepo - Your Pocket Companion 🦦</h2> 
+<h2>Meet Panda - Your Pocket Companion 🐼</h2> 
 <br/>
 <video autoplay loop muted>
-  <source src="readmeImages/Pepoo.mp4" type="video/mp4">
+  <source src="readmeImages/Panda.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -54,7 +54,7 @@ Beyond self-care tools, we've incorporated a Cognitive Behavioral Therapy (CBT) 
 
 1. <b>Personalized Care:</b> Tailor your experience by selecting specific challenges like anxiety or depression to access relevant mental wellness tools.
 
-2. <b>Pepo Mood Conversations:</b> Engage with our interactive companion to monitor your emotional state and receive encouraging feedback.
+2. <b>Panda Mood Conversations:</b> Engage with our interactive companion to monitor your emotional state and receive encouraging feedback.
 
 3. <b>CBT Assessment:</b> Take our Cognitive Behavioral Therapy evaluation to understand your mental wellness and recognize unhelpful thinking patterns.
 
@@ -121,4 +121,4 @@ Pre-Final Year Students of Btech Computer Engineering -
 2. Sachin
 3. Mayank
 
-We have created Vayu with our own touch and preferences. Watching many of our close one's into depression is something which can bother any one. This project is close to us and also would be to you!
+We have created Saathi with our own touch and preferences. Watching many of our close one's into depression is something which can bother any one. This project is close to us and also would be to you!
