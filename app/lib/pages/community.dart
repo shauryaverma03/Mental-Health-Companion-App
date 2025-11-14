@@ -92,7 +92,7 @@ class _CommunityPageState extends State<CommunityPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Community'),
-          backgroundColor: Colors.teal[300],
+          backgroundColor: Colors.blue[300],
         ),
         body: Container(
           decoration: BoxDecoration(

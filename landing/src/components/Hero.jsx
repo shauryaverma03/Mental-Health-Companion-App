@@ -21,7 +21,7 @@ const Hero = () => {
 
           <div className="max-w-xl grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="flex items-start gap-3">
-              <span className="text-2xl">💬</span>
+              <div className="w-2 h-2 rounded-full bg-[#0CADB5] mt-2 flex-shrink-0"></div>
               <div>
                 <h3 className="font-semibold text-gray-800">Chat with Panda</h3>
                 <p className="text-gray-600">AI companion available 24/7</p>
@@ -29,7 +29,7 @@ const Hero = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <span className="text-2xl">🧘</span>
+              <div className="w-2 h-2 rounded-full bg-[#0CADB5] mt-2 flex-shrink-0"></div>
               <div>
                 <h3 className="font-semibold text-gray-800">
                   Guided Meditation
@@ -39,7 +39,7 @@ const Hero = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <span className="text-2xl">🌬️</span>
+              <div className="w-2 h-2 rounded-full bg-[#0CADB5] mt-2 flex-shrink-0"></div>
               <div>
                 <h3 className="font-semibold text-gray-800">
                   Breathing Exercises
@@ -49,7 +49,7 @@ const Hero = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <span className="text-2xl">📚</span>
+              <div className="w-2 h-2 rounded-full bg-[#0CADB5] mt-2 flex-shrink-0"></div>
               <div>
                 <h3 className="font-semibold text-gray-800">
                   Mental Health Blogs

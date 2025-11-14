@@ -55,7 +55,7 @@ class CBTResultPage extends StatelessWidget {
             TextButton(
               child: Text(
                 'Close',
-                style: TextStyle(color: Colors.teal[300]),
+                style: TextStyle(color: Colors.blue[300]),
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),

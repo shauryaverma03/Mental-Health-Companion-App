@@ -117,7 +117,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                 child: Text(
                   'Listen to \ntherapy music ..',
                   style: TextStyle(
-                    color: Colors.teal,
+                    color: Colors.blue[800],
                     fontFamily: 'Poppins',
                     fontSize: 30,
                     fontWeight: FontWeight.bold,

@@ -79,7 +79,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
-        backgroundColor: Colors.teal[50], // light green background color
+        backgroundColor: Colors.blue[50], // light green background color
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -134,7 +134,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                             : CircleAvatar(
                                 radius: 120,
                                 backgroundColor:
-                                    const Color.fromRGBO(86, 178, 202, 1),
+                                    const Color.fromARGB(255, 14, 136, 187),
                                 child: Text(
                                   'Start',
                                   style: TextStyle(
@@ -179,7 +179,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                         children: [
                           IconButton(
                             icon: Icon(Icons.replay_10,
-                                color: Color.fromRGBO(0, 90, 109, 1)),
+                                color: Color.fromRGBO(21, 124, 155, 1)),
                             iconSize: 40,
                             onPressed: () {},
                           ),

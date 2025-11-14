@@ -28,7 +28,7 @@ class DetailView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(title),
-          backgroundColor: Colors.teal.shade50,
+          backgroundColor: Colors.blue.shade50,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
