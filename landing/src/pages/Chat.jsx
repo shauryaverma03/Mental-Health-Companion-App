@@ -9,7 +9,6 @@ const Chat = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [modalOpen, setModalOpen] = useState(false); // Modal state
   const [userId, setuserId] = useState(""); // Modal state
-  //   const userId = "134982huwbcjiabsc";
 
   function createRandomString(length) {
     const chars =
@@ -51,8 +50,7 @@ const Chat = () => {
 
     try {
       console.log(BASE_URL);
-      // Send the message to the backend API
-      const response = await axios.post(BASE_URL, {
+      const response = await axios.post(`${BASE_URL}/chat/add`, {
         userId,
         message: input,
         platform: "site",
@@ -115,7 +113,6 @@ const Chat = () => {
         </div>
         <div className="text-xl text-center bg-[#07848b] p-4 rounded-xl">
           <a href="https://github.com/racchittt/gen_ai">Get our App!</a>
-          
         </div>
       </div>
 
@@ -190,13 +187,13 @@ const Chat = () => {
                   <input
                     type="text"
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={(e) => setInput(e.target.value)} // corrected here
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         if (e.ctrlKey) {
                           setInput((prev) => prev + "\n");
                         } else {
-                          e.preventDefault(); 
+                          e.preventDefault();
                           sendMessage();
                         }
                       }
@@ -241,7 +238,9 @@ const Chat = () => {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-8 max-w-sm mx-auto text-center">
-            <a href="https://github.com/racchittt/gen_ai"><h2 className="text-2xl font-semibold mb-4">Download Our App</h2></a>
+            <a href="https://github.com/racchittt/gen_ai">
+              <h2 className="text-2xl font-semibold mb-4">Download Our App</h2>
+            </a>
             <p className="mb-6">
               To continue chatting, please download our app for the best
               experience.
