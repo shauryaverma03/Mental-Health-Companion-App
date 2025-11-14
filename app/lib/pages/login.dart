@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   alignment: Alignment.center,
                   child: Image.asset("assets/images/otter-swim.gif",
-                      height: 140, width: 250, fit: BoxFit.cover),
+                      height: 240, width: 250, fit: BoxFit.cover),
                 ),
 
                 const SizedBox(height: 50),

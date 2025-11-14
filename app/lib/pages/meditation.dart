@@ -73,9 +73,9 @@ class _MeditationScreenState extends State<MeditationScreen>
         appBar: AppBar(
           title: const Text(
             'Meditate',
-            style: TextStyle(color: Colors.teal),
+            style: TextStyle(color: Colors.blue),
           ),
-          backgroundColor: Colors.teal[50],
+          backgroundColor: Colors.blue[50],
           centerTitle: true,
         ),
         body: Container(
@@ -110,14 +110,14 @@ class _MeditationScreenState extends State<MeditationScreen>
                     fontFamily: 'Poppins',
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.teal[700],
+                    color: Colors.blue[800],
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 0),
                 Text(
                   'Duration: ${_duration ~/ 60} min ${_duration % 60} sec',
-                  style: TextStyle(fontSize: 18, color: Colors.teal[600]),
+                  style: TextStyle(fontSize: 18, color: Colors.blue[700]),
                 ),
                 const SizedBox(height: 0),
                 Row(
@@ -126,13 +126,13 @@ class _MeditationScreenState extends State<MeditationScreen>
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: _incrementDuration,
-                      color: Colors.teal,
+                      color: Colors.blue,
                     ),
                     const SizedBox(width: 20),
                     IconButton(
                       icon: const Icon(Icons.remove),
                       onPressed: _decrementDuration,
-                      color: Colors.teal,
+                      color: Colors.blue,
                     ),
                   ],
                 ), // Reduced space
@@ -143,8 +143,8 @@ class _MeditationScreenState extends State<MeditationScreen>
                   width: MediaQuery.of(context).size.width / 2.5,
                   height: MediaQuery.of(context).size.height / 3.0,
                   ringColor: Colors.grey[300]!,
-                  fillColor: Colors.teal[200]!,
-                  backgroundColor: Colors.teal[100],
+                  fillColor: Colors.blue[200]!,
+                  backgroundColor: Colors.blue[200],
                   strokeWidth: 6.0,
                   strokeCap: StrokeCap.round,
                   textStyle: const TextStyle(
@@ -245,7 +245,7 @@ class _MeditationScreenState extends State<MeditationScreen>
       width: 150, // Fixed width for buttons for uniformity
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(Colors.teal),
+          backgroundColor: WidgetStateProperty.all(Colors.blue),
           padding: WidgetStateProperty.all(const EdgeInsets.all(15)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
