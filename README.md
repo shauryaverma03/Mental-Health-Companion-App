@@ -6,7 +6,7 @@
 
   <br>
 
-![Image](readmeImages/saathi1.png)
+![Image](readmeImages/vayu1.png)
 
   <hr>
 </div>
