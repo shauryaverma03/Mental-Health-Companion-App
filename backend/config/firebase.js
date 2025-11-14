@@ -41,7 +41,7 @@ try {
   console.error('Failed to initialize Firebase Admin:', err && err.message ? err.message : err);
 }
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration (existing server-side config for genai project)
 const firebaseConfig = {
   apiKey: "AIzaSyDKgc8X_P7AbPvJRdHypZOVW_Njuu-KkOk",
   authDomain: "genai-beab8.firebaseapp.com",
@@ -54,4 +54,16 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-module.exports = {db, admin, adminInitialized};
+ 
+// Add exported web app config provided by user (do NOT initialize analytics on the server)
+const webFirebaseConfig = {
+  apiKey: "AIzaSyDyJsigLG8S3tyeqzw51IIf0aQ7X4UyxAg",
+  authDomain: "mental-health-48a45.firebaseapp.com",
+  projectId: "mental-health-48a45",
+  storageBucket: "mental-health-48a45.firebasestorage.app",
+  messagingSenderId: "898369877318",
+  appId: "1:898369877318:web:9024dcccdacd889fc46147",
+  measurementId: "G-W2TXB2YVSB"
+};
+
+module.exports = { db, admin, adminInitialized, webFirebaseConfig };
