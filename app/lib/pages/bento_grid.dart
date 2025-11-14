@@ -9,7 +9,7 @@ class BentoGridPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bento Grid'),
-        backgroundColor: Colors.teal, // Customize your app bar color
+        backgroundColor: Colors.blue[300], // Customize your app bar color
       ),
       body: const BentoGridWidget(), // Using the BentoGridWidget
     );

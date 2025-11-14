@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:genai/components/lottie_widget.dart';
-import 'package:flutter/animation.dart';
 import 'package:genai/pages/dashboard.dart';
 
 class MeditationScreen extends StatefulWidget {
@@ -83,8 +82,8 @@ class _MeditationScreenState extends State<MeditationScreen>
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
+                Colors.blue[300]!,
                 Colors.teal[100]!,
-                Colors.grey[200]!,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,

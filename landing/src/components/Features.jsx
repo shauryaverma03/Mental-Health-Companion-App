@@ -5,8 +5,8 @@ const Features = () => {
     <section id="features">
       {/* Flex Container */}
       <div className="flex flex-col">
-      <h2 className="text-4xl font-bold text-center pt-16">
-          <span className="text-[#0CADB5]">Pepo</span> in your Pocket.
+        <h2 className="text-4xl font-bold text-center pt-16">
+          <span className="text-[#0CADB5]">Panda</span> in your Pocket.
         </h2>
         <div className="container  flex flex-col px-4 mx-auto mt-20 space-y-12 md:space-y-0 md:flex-row">
           {/* What's Different */}

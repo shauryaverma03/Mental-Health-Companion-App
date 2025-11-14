@@ -73,8 +73,8 @@ class _JournalState extends State<Journal> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
+                Colors.blue[300]!,
                 Colors.teal[100]!,
-                Colors.grey[200]!,
               ],
             ),
           ),
