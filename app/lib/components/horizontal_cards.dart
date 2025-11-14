@@ -52,14 +52,14 @@ class HorizontalCards extends StatelessWidget {
                     Icon(
                       items[index].icon,
                       size: 40,
-                      color: Colors.teal,
+                      color: Colors.blue[600],
                     ),
                     SizedBox(height: 10),
                     Text(
                       items[index].label,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.teal[600],
+                        color: Colors.blue[600],
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
