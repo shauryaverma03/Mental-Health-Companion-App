@@ -1,7 +1,7 @@
 <!-- PROJECT TITLE -->
-<div >
-  <h1  style="bold"  >
-    VAYU - GenZ way to mental health
+<div>
+  <h1 style="bold">
+    Saathi - A Modern Approach to Mental Wellness
   </h1>
 
   <br>
@@ -11,61 +11,61 @@
   <hr>
 </div>
 
-<h2>Overview</h2>
-Vayu AI therapist is designed to provide comprehensive mental health support through an accessible and user-friendly platform. It helps individuals address issues like depression, stress, and anxiety by offering a variety of tools and resources. Users can easily navigate the app through a secure authentication system and engage in activities such as journaling, meditation, and breathing exercises. The app also features a community where users can anonymously interact, share experiences, and support one another. Our goal is to create a supportive space where mental well-being can be managed and improved in a personalized and convenient manner.
+<h2>About This Project</h2>
+Vayu AI therapist offers a holistic approach to mental wellness through an intuitive and accessible digital platform. Our solution addresses common mental health challenges including depression, anxiety, and stress by providing diverse therapeutic tools and resources. Through a streamlined authentication process, users gain access to features like personal journaling, guided meditation sessions, and breathing techniques. The platform includes an anonymous community space where individuals can connect, share their journeys, and find mutual support. We've built this to be a safe haven where mental health can be nurtured and managed through personalized, convenient tools.
 
-<h2>Fine Tuned Gemini Model</h2>
+<h2>AI-Powered Therapy with Fine-Tuned Gemini</h2>
 
 ![Image](readmeImages/genAi.jpeg)
 
 <br>
 <br>
-<h2>What our project does for the same?</h2>
+<h2>Our Solution Approach</h2>
 
-Our project combines essential mental health resources into one cohesive platform. After users log in, they can select from a range of mental health issues they are dealing with, such as depression or stress, and the app provides personalized tools to address these concerns. Users have access to various features like mood tracking, meditation, journaling, and breathing exercises, which help in self-care and mental health management.
+We've integrated critical mental wellness resources into a unified, seamless experience. Upon authentication, users identify their specific mental health concerns—whether it's depression, stress, or anxiety—and receive customized tools tailored to their needs. The platform encompasses various capabilities including emotional tracking, mindfulness meditation, personal reflection journals, and calming breath work exercises that empower self-directed mental health management.
 
-The app also offers a Cognitive Behavioral Therapy (CBT) test to assist users in assessing their mental health. Additionally, users can connect with mental health professionals and participate in an anonymous community forum, where they can share experiences and find encouragement from others.
+Beyond self-care tools, we've incorporated a Cognitive Behavioral Therapy (CBT) assessment to help users evaluate their mental state. The platform also facilitates connections with licensed mental health practitioners and hosts a private community space where users can anonymously engage, share their stories, and receive support from peers.
 <br>
 
-<h2>Project Overview</h2>
+<h2>Platform Walkthrough</h2>
 
-### App Screenshots-
+### Application Interface-
 
 <br>
 
 ![Image](readmeImages/feature1.png)
 ![Image](readmeImages/feature2.png)
 
-### Architecture -
+### System Design -
 
 <br>
 
 ![Image](readmeImages/architecture.png)
 
 <br>
-<h2>Pepo in your Pocket 🦦</h2> 
+<h2>Meet Pepo - Your Pocket Companion 🦦</h2> 
 <br/>
 <video autoplay loop muted>
   <source src="readmeImages/Pepoo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-<h2>Key features</h2>
+<h2>Core Capabilities</h2>
 
-1. <b>Customizable Support:</b> Users can select specific issues like depression or stress to receive targeted mental health resources.
+1. <b>Personalized Care:</b> Tailor your experience by selecting specific challenges like anxiety or depression to access relevant mental wellness tools.
 
-2. <b>Mood Chat with Pepo:</b> An interactive chat feature to help users track their moods and receive positive reinforcement.
+2. <b>Pepo Mood Conversations:</b> Engage with our interactive companion to monitor your emotional state and receive encouraging feedback.
 
-3. <b>CBT Test:</b> A Cognitive Behavioral Therapy test to help users assess their mental health and identify negative thought patterns.
+3. <b>CBT Assessment:</b> Take our Cognitive Behavioral Therapy evaluation to understand your mental wellness and recognize unhelpful thinking patterns.
 
-4. <b>Anonymous Community:</b> A supportive community forum where users can interact anonymously, providing a safe space for sharing and support.
+4. <b>Private Community Space:</b> Join a judgment-free community forum where users connect anonymously, creating a secure environment for authentic sharing and mutual encouragement.
 
-5. <b>Motivational Cards:</b> Cards with motivational quotes and tips to uplift users during difficult times.
+5. <b>Inspiration Cards:</b> Browse through uplifting quotes and practical wellness tips designed to support you during challenging moments.
 
-6. <b>Mental Health Blog:</b> A blog with articles and tips on managing stress, depression, and other mental health challenges.
+6. <b>Wellness Resource Hub:</b> Access our curated blog featuring evidence-based articles and strategies for managing stress, depression, and various mental health concerns.
 
 <br>
-<h2>Technologies used</h2>
+<h2>Tech Stack</h2>
 
 ![Image](readmeImages/techStack.png)
 
@@ -73,9 +73,10 @@ The app also offers a Cognitive Behavioral Therapy (CBT) test to assist users in
 
 <br>
 
-<h2>How to Setup</h2>
+<h2>Installation Guide</h2>
 
-Clone the repository using
+Clone this repository
+
 
 ```
 git clone https://github.com/shauryaverma03 Mental-Health-Companion-App.git
