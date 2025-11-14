@@ -114,7 +114,7 @@ const Chat = () => {
           </ul>
         </div>
         <div className="text-xl text-center bg-[#07848b] p-4 rounded-xl">
-          <a href="https://github.com/racchittt/gen_ai">Get our App!</a>
+          <a href="https://github.com/shauryaverma03/Mental-Health-Companion-App">Get our App!</a>
           
         </div>
       </div>
