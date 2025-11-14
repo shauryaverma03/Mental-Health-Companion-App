@@ -1,11 +1,14 @@
-const { doc, setDoc, getDoc } = require('firebase/firestore');
-const { User } = require('../../config/db'); // Firestore Users collection
+const { User } = require('../../config/db'); // Admin Firestore collection ref
+
+if (!User) {
+    throw new Error('Firestore "users" collection not initialized. Check Firebase Admin config.');
+}
 
 // Create or update a user
 async function createUser(userId, data) {
     try {
-        const userRef = doc(User, userId);
-        await setDoc(userRef, data, { merge: true }); // Merge if the document already exists
+        const userRef = User.doc(userId);
+        await userRef.set(data, { merge: true }); // Merge if the document already exists
         return { userId, ...data };
     } catch (error) {
         throw error;
@@ -15,9 +18,9 @@ async function createUser(userId, data) {
 // Get a user by userId
 async function getUserById(userId) {
     try {
-        const userRef = doc(User, userId);
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
+        const userRef = User.doc(userId);
+        const userDoc = await userRef.get();
+        if (userDoc.exists) {
             return { userId, ...userDoc.data() };
         } else {
             return null; // User not found

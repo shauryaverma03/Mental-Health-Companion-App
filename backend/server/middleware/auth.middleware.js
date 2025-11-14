@@ -1,4 +1,4 @@
-const admin = require('firebase-admin'); // Ensure Firebase Admin SDK is imported
+const { admin } = require('../../config/firebase'); // Use the initialized admin from config
 
 // Middleware to verify Firebase token
 async function authenticateToken(req, res, next) {

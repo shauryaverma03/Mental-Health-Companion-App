@@ -1,29 +1,34 @@
-const { doc, updateDoc, setDoc, arrayUnion, getDoc } = require("firebase/firestore");
-const {Chats} = require('../../config/db'); // Firestore initialization
+const { Chats } = require('../../config/db'); // Admin Firestore collection ref
+const { admin } = require('../../config/firebase');
+
+if (!Chats) {
+    throw new Error('Firestore "chats" collection not initialized. Check Firebase Admin config.');
+}
 
 async function addChat(userId, date, data, platform = null) {
     try {
-        // Use the userId and date to form the document ID
         const chatDocId = `${userId}_${date}`;
-        const chatRef = doc(Chats, chatDocId);
-        
-        // Append the message to the array of messages for the day
-        await updateDoc(chatRef, {
-            messages: arrayUnion(data)
-        }).catch(async (error) => {
+        const chatRef = Chats.doc(chatDocId);
+
+        try {
+            await chatRef.update({
+                messages: admin.firestore.FieldValue.arrayUnion(data)
+            });
+        } catch (error) {
             // If the document doesn't exist, create it
-            console.log(error);
-            if (error.code === 'not-found') {
-                await setDoc(chatRef, {
+            // Different environments may produce different error messages/codes; check common cases
+            const msg = (error && (error.message || '')).toLowerCase();
+            if (msg.includes('no document') || msg.includes('not-found') || error.code === 5) {
+                await chatRef.set({
                     messages: [data],
                     userId: userId,
                     date: date,
-                    platform:null
+                    platform: platform || null
                 });
             } else {
                 throw error;
             }
-        });
+        }
 
         return;
     } catch (e) {
@@ -34,13 +39,12 @@ async function addChat(userId, date, data, platform = null) {
 // Get all messages for a specific user and day
 async function getChat(userId, date) {
     try {
-        // Use the userId and date to form the document ID
         const chatDocId = `${userId}_${date}`;
-        const chatRef = doc(Chats, chatDocId);
-        const chatDoc = await getDoc(chatRef);
-        
-        if (chatDoc.exists()) {
-            return chatDoc.data().messages;
+        const chatRef = Chats.doc(chatDocId);
+        const chatDoc = await chatRef.get();
+
+        if (chatDoc.exists) {
+            return chatDoc.data().messages || [];
         } else {
             return []; // No messages found for this date
         }

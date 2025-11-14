@@ -1,8 +1,7 @@
-
 const express = require('express');
 const communityController = require('./community.controller');
 const router = express.Router();
-const { authenticateToken } = require('../middleware/auth.middleware');
+const authenticateToken = require('../middleware/auth.middleware'); // import default exported middleware
 
 router.post('/addComment/:messageId',communityController.addComment );
 router.post('/create',communityController.createCommunityMessage );

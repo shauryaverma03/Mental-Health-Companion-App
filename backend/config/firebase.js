@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
 const { initializeApp } = require("firebase/app");
-const { getFirestore } = require("firebase/firestore");
 const admin = require('firebase-admin');
-// const serviceAccount = require('../config/serviceAccountKey.json'); // Your Firebase Admin SDK key
 const env = process.env;
 
 // Initialize Firebase Admin
@@ -41,21 +39,15 @@ try {
   console.error('Failed to initialize Firebase Admin:', err && err.message ? err.message : err);
 }
 
-// Your web app's Firebase configuration (existing server-side config for genai project)
-const firebaseConfig = {
-  apiKey: "AIzaSyDKgc8X_P7AbPvJRdHypZOVW_Njuu-KkOk",
-  authDomain: "genai-beab8.firebaseapp.com",
-  projectId: "genai-beab8",
-  storageBucket: "genai-beab8.appspot.com",
-  messagingSenderId: "1061760502961",
-  appId: "1:1061760502961:web:641e065dc4c9c923aea690"
-};
+// Server-side Firestore (admin)
+let db = null;
+if (adminInitialized) {
+  db = admin.firestore();
+} else {
+  console.warn('Firebase Admin not initialized; `db` is null. Ensure PRIVATE_KEY and CLIENT_EMAIL are set.');
+}
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
- 
-// Add exported web app config provided by user (do NOT initialize analytics on the server)
+// Web (frontend) Firebase config — exported so frontend can initialize client SDK
 const webFirebaseConfig = {
   apiKey: "AIzaSyDyJsigLG8S3tyeqzw51IIf0aQ7X4UyxAg",
   authDomain: "mental-health-48a45.firebaseapp.com",
