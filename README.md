@@ -16,7 +16,7 @@ Saathi AI therapist offers a holistic approach to mental wellness through an int
 
 <h2>AI-Powered Therapy with Fine-Tuned Gemini</h2>
 
-![Image](readmeImages/genAi.jpeg)
+![Image](WhatsApp Image 2025-11-15 at 03.42.27.jpeg)
 
 <br>
 <br>
