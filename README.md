@@ -36,11 +36,6 @@ Beyond self-care tools, we've incorporated a Cognitive Behavioral Therapy (CBT) 
 ![Image](readmeImages/feature1.png)
 ![Image](readmeImages/feature2.png)
 
-### System Design -
-
-<br>
-
-![Image](readmeImages/architecture.png)
 
 <br>
 <h2>Meet Panda - Your Pocket Companion 🐼</h2> 
