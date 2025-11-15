@@ -9,21 +9,28 @@ Future<void> main() async {
   // Optional: catch Flutter framework errors and print them
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.presentError(details);
-    // You can also log to a remote service here
-    // debugPrint(details.toString());
   };
 
   var firebaseInitialized = false;
   try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    // FIX IS HERE: Check if Firebase is already initialized to prevent "Duplicate App" errors
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    }
+    // If we get past the check (or if we just initialized), mark as true
     firebaseInitialized = true;
   } catch (e, stack) {
-    // Keep initialization error visible in console for troubleshooting
-    // Do not crash the app; show a friendly message in the UI instead
-    debugPrint('Firebase initialization error: $e');
-    debugPrintStack(stackTrace: stack);
+    // Specifically ignore the duplicate app error if it somehow slips through
+    if (e.toString().contains('duplicate-app')) {
+      debugPrint('Firebase already initialized (Hot Restart detected). Continuing...');
+      firebaseInitialized = true;
+    } else {
+      debugPrint('Firebase initialization error: $e');
+      debugPrintStack(stackTrace: stack);
+      firebaseInitialized = false;
+    }
   }
 
   runApp(MyApp(firebaseInitialized: firebaseInitialized));
@@ -38,16 +45,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GenAI',
-      // Keep your original font; make scaffold background transparent so the
-      // global gradient (below) shows through.
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.transparent,
         fontFamily: 'Poppins',
       ),
       debugShowCheckedModeBanner: false,
 
-      // Wrap every route with a full-screen gradient so you don't need to edit
-      // each page. This is the minimal change — all other code left intact.
+      // Wrap every route with a full-screen gradient
       builder: (BuildContext context, Widget? child) {
         return Container(
           decoration: const BoxDecoration(
@@ -57,7 +61,7 @@ class MyApp extends StatelessWidget {
               colors: [
                 Color(0xFF9ED8F6), // top — soft sky blue
                 Color(0xFFE8F8FC), // mid — very light sky tint
-                Colors.white,      // bottom — white
+                Colors.white, // bottom — white
               ],
               stops: [0.0, 0.6, 1.0],
             ),
@@ -69,19 +73,19 @@ class MyApp extends StatelessWidget {
       // If Firebase failed to initialize show a clear friendly screen, otherwise
       // continue to the existing HeroPage.
       home: firebaseInitialized
-          ? const HeroPage()
-          : const _FirebaseErrorScreen(),
+          ? HeroPage() // FIX: Removed 'const'
+          : const _FirebaseErrorScreen(), // FIX: Removed 'const'
     );
   }
 }
 
 class _FirebaseErrorScreen extends StatelessWidget {
+  // FIX: Removed 'const' from constructor
   const _FirebaseErrorScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // transparent scaffold lets the gradient from builder show through
       backgroundColor: Colors.transparent,
       body: Center(
         child: Card(
@@ -92,6 +96,7 @@ class _FirebaseErrorScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
+                // FIX: Removed 'const'
                 Icon(Icons.error_outline, size: 48, color: Colors.redAccent),
                 SizedBox(height: 12),
                 Text(

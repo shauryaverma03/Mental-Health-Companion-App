@@ -16,7 +16,7 @@ Saathi AI therapist offers a holistic approach to mental wellness through an int
 
 <h2>AI-Powered Therapy with Fine-Tuned Gemini</h2>
 
-![Image](readmeImages/genAi.jpeg)
+![Image](WhatsApp Image 2025-11-15 at 03.42.27.jpeg)
 
 <br>
 <br>
@@ -36,11 +36,6 @@ Beyond self-care tools, we've incorporated a Cognitive Behavioral Therapy (CBT) 
 ![Image](readmeImages/feature1.png)
 ![Image](readmeImages/feature2.png)
 
-### System Design -
-
-<br>
-
-![Image](readmeImages/architecture.png)
 
 <br>
 <h2>Meet Panda - Your Pocket Companion 🐼</h2> 
