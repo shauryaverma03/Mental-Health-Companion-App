@@ -21,7 +21,6 @@ Future<void> main() async {
     }
     // If we get past the check (or if we just initialized), mark as true
     firebaseInitialized = true;
-    
   } catch (e, stack) {
     // Specifically ignore the duplicate app error if it somehow slips through
     if (e.toString().contains('duplicate-app')) {
@@ -62,7 +61,7 @@ class MyApp extends StatelessWidget {
               colors: [
                 Color(0xFF9ED8F6), // top — soft sky blue
                 Color(0xFFE8F8FC), // mid — very light sky tint
-                Colors.white,      // bottom — white
+                Colors.white, // bottom — white
               ],
               stops: [0.0, 0.6, 1.0],
             ),
@@ -74,13 +73,14 @@ class MyApp extends StatelessWidget {
       // If Firebase failed to initialize show a clear friendly screen, otherwise
       // continue to the existing HeroPage.
       home: firebaseInitialized
-          ? const HeroPage()
-          : const _FirebaseErrorScreen(),
+          ? HeroPage() // FIX: Removed 'const'
+          : const _FirebaseErrorScreen(), // FIX: Removed 'const'
     );
   }
 }
 
 class _FirebaseErrorScreen extends StatelessWidget {
+  // FIX: Removed 'const' from constructor
   const _FirebaseErrorScreen({Key? key}) : super(key: key);
 
   @override
@@ -96,6 +96,7 @@ class _FirebaseErrorScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
+                // FIX: Removed 'const'
                 Icon(Icons.error_outline, size: 48, color: Colors.redAccent),
                 SizedBox(height: 12),
                 Text(

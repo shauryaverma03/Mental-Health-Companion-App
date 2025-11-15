@@ -1,52 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:genai/components/my_button.dart';
 import 'package:genai/components/my_textfield.dart';
-import 'package:genai/components/square_tile.dart';
-import 'package:genai/pages/dashboard.dart';
 import 'package:genai/pages/type.dart';
-import 'package:genai/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, this.onTap});
-  final Function()? onTap;
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-
-  final passwordController = TextEditingController();
-
-  // sign user in method
-  void signUserIn() async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-    await Future.delayed(const Duration(seconds: 2));
-    Navigator.pop(context);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const DashboardPage()),
-    );
-  }
-
-  void wrongAuthMessage(String msg) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(msg),
-        );
-      },
-    );
-  }
+  // This controller is now for the user's name
+  final nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -79,15 +45,14 @@ class _LoginPageState extends State<LoginPage> {
 
                 // username textfield
                 MyTextField(
-                  controller: emailController,
+                  controller: nameController, // Was emailController
                   hintText: 'captain',
                   obscureText: false,
                 ),
-                const SizedBox(height: 10),
 
                 const SizedBox(height: 10),
 
-                // forgot password?
+                // "Pick a cool name!" text
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -106,7 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                 // sign in button
                 MyButton(
                   onTap: () {
-                    // login logic after backend
+                    // Simply navigate to the next page
+                    // You could pass the nameController.text to the 'Type' page if needed
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const Type()),
@@ -116,69 +82,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 const SizedBox(height: 50),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'or',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 50),
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Google button
-                    GestureDetector(
-                      onTap: () async {
-                        print('Button tapped');
-                        try {
-                          await AuthService().signInWithGoogle();
-                          await AuthService().loginWithFirebase();
-                          if (await AuthService().readToken() != null) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const DashboardPage()),
-                            );
-                          }
-                        } catch (e) {
-                          print("Google Sign In failed: $e");
-                        }
-                      },
-                      child: SquareTile(
-                        imagePath: 'assets/images/google.png',
-                        text: "Continue with Google",
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Sign In or Login with Google',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                  ],
-                )
               ],
             ),
           ),
