@@ -1,17 +1,25 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
+
+// Import pages
 import Home from "../pages/Home";
-import Chat from "../pages/Chat";
+import AuthPage from "../pages/Auth";
+
+// Lazy-load Chat just like in App.jsx
+const Chatbot = lazy(() => import('../pages/Chat').then(mod => ({ default: mod.default })));
 
 const Router = () => {
-  return (
-    <>
-      <Routes>
-        <Route exact path="/chat" element={<Chat />} />
-        <Route exact path="/" element={<Home />} />
-      </Routes>
-    </>
-  );
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/chat" element={<Chatbot />} />
+        {/* Adds the fallback route back in */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
+  );
 };
 
 export default Router;

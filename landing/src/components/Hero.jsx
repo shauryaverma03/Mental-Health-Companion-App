@@ -61,7 +61,7 @@ const Hero = () => {
 
           <div className="flex gap-4 justify-center md:justify-start flex-wrap">
             <Link
-              to="/chat"
+              to="/auth"
               className="p-3 px-8 text-white bg-[#0CADB5] rounded-full hover:bg-[#00949c] transition-all duration-300 font-semibold shadow-lg"
             >
               Start Chatting
