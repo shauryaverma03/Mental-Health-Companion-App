@@ -55,7 +55,8 @@ class AuthService {
       return null;
     }
     try {
-      final String token = await user.getIdToken(forceRefresh);
+      // ✅ CORRECT (Allow it to be null)
+      final String? token = await user.getIdToken(forceRefresh);
       return token;
     } catch (e, stack) {
       debugPrint('Error getting ID token: $e');
