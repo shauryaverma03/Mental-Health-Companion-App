@@ -1,0 +1,478 @@
+import 'package:flutter/material.dart';
+import 'package:saathi/components/horizontal_cards.dart';
+import 'package:saathi/pages/blog.dart';
+import 'package:saathi/pages/breathe.dart';
+import 'package:saathi/pages/cards.dart';
+import 'package:saathi/pages/cbt/disclaimer.dart';
+import 'package:saathi/pages/chat_screen.dart';
+import 'package:saathi/pages/community.dart';
+import 'package:saathi/pages/contact_professionals.dart';
+import 'package:saathi/pages/journal.dart';
+import 'package:saathi/pages/meditation.dart';
+import 'package:saathi/pages/mood.dart';
+import 'package:saathi/pages/music_player.dart';
+import 'package:saathi/pages/sos.dart';
+import '../util/exercise_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:saathi/themes/app_theme.dart';
+
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  int _selectedIndex = 0;
+
+  // These are the screens the bottom nav bar will switch between
+  final List<Widget> _screens = [
+    const DashboardContent(), // Screen 0: The main dashboard UI
+    const CommunityPage(), // Screen 1: The community page
+    FlashCard(), // Screen 2: The flash card page - *** THIS IS THE FIX ***
+  ];
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex == index) return;
+    // Just update the state, the IndexedStack will do the rest
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Future<bool> _onWillPop() async {
+    if (_selectedIndex != 0) {
+      // If not on the home tab, switch to the home tab
+      setState(() {
+        _selectedIndex = 0;
+      });
+      return false; // Don't pop the app
+    }
+    return true; // On the home tab, so allow app to pop
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: AppTheme.backgroundGradient,
+          ),
+          child: Stack(
+            children: [
+              Scaffold(
+                backgroundColor: Colors.transparent,
+                body: SafeArea(
+                  // IndexedStack keeps all screens in memory but only shows one
+                  child: IndexedStack(
+                    index: _selectedIndex,
+                    children: _screens, // Use the list of screens here
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    child: CustomBottomNavBar(
+                      selectedIndex: _selectedIndex,
+                      onItemSelected: _onItemTapped,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// I've moved the dashboard UI into its own stateless widget
+// This makes the code cleaner and fixes the navigation logic.
+class DashboardContent extends StatelessWidget {
+  const DashboardContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 100), // Added more bottom padding
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _getGreetingName(),
+                              style: AppTheme.heading1.copyWith(
+                                color: AppTheme.primaryDark,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            )
+                          ],
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SosScreen()));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppTheme.accent,
+                                borderRadius: BorderRadius.circular(AppTheme.radiusButton),
+                              ),
+                              padding: EdgeInsets.all(12.0),
+                              child: Icon(
+                                Icons.sos,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          InkWell(
+                            onTap: () async {
+                              await FirebaseAuth.instance.signOut();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppTheme.error,
+                                borderRadius: BorderRadius.circular(AppTheme.radiusButton),
+                              ),
+                              padding: EdgeInsets.all(12.0),
+                              child: Icon(
+                                Icons.logout,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: AppTheme.surface,
+                          borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+                          border: Border.all(
+                            color: AppTheme.primaryLight,
+                            width: 2,
+                          ),
+                        ),
+                        padding: EdgeInsets.all(12),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Journal()));
+                          },
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.menu_book,
+                                  color: AppTheme.primary,
+                                ),
+                                SizedBox(
+                                  width: AppTheme.spaceSm,
+                                ),
+                                Text(
+                                  'Journal',
+                                  style: AppTheme.heading2.copyWith(color: AppTheme.primary),
+                                )
+                              ]),
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: AppTheme.surface,
+                          borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+                          border: Border.all(
+                            color: AppTheme.primaryLight,
+                            width: 2,
+                          ),
+                        ),
+                        padding: EdgeInsets.all(12),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MoodScreen()),
+                            );
+                          },
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.emoji_emotions,
+                                  color: AppTheme.primary,
+                                ),
+                                SizedBox(
+                                  width: AppTheme.spaceSm,
+                                ),
+                                Text(
+                                  'Mood',
+                                  style: AppTheme.heading2.copyWith(color: AppTheme.primary),
+                                )
+                              ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        child: Image.asset("assets/images/otter.gif",
+                            height: 90, width: 80, fit: BoxFit.cover),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                  child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
+                              child: Text(
+                                'Panda loves to talk!',
+                                style: AppTheme.heading2.copyWith(
+                                  color: AppTheme.primaryDark,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChatScreen()));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: AppTheme.primary,
+                                  borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+                                  boxShadow: AppTheme.cardShadow,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 16, horizontal: AppTheme.spaceXl),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Chat with Panda',
+                                      style: AppTheme.button.copyWith(fontSize: 18),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_rounded,
+                                      color: AppTheme.textOnPrimary,
+                                      size: 24,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Container(
+              padding: EdgeInsets.all(25),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Looking for something?',
+                        style: AppTheme.heading2,
+                      ),
+                      Icon(Icons.more_horiz),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  HorizontalCards(items: [
+                    CardItem(
+                        icon: Icons.self_improvement_sharp,
+                        label: 'Meditate',
+                        path: MeditationScreen()),
+                    CardItem(
+                        icon: Icons.music_note,
+                        label: 'Music',
+                        path: MusicPlayerPage()),
+                    CardItem(
+                        icon: Icons.air,
+                        label: 'Breathe',
+                        path: BreathingScreen()),
+                    CardItem(
+                        icon: Icons.menu_book, label: 'CBT', path: Disclaimer()),
+                  ]),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Explore',
+                      style: AppTheme.heading2,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      ExerciseTile(
+                          icon: Icons.favorite,
+                          exerciseName: 'Blogs',
+                          numberOfExercise: 16,
+                          color: Colors.orange,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BlogScreen()));
+                          }),
+                      ExerciseTile(
+                          icon: Icons.person,
+                          exerciseName: 'Contact Professionals',
+                          numberOfExercise: 8,
+                          color: Colors.green,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ContactProfessionals()));
+                          }),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getGreetingName() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      if (user.displayName != null && user.displayName!.isNotEmpty) {
+        return 'Hello ${user.displayName}!';
+      }
+      if (user.email != null && user.email!.isNotEmpty) {
+        return 'Hello ${user.email!.split('@')[0]}!';
+      }
+    }
+    return 'Hello there!';
+  }
+}
+
+class CustomBottomNavBar extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemSelected;
+
+  const CustomBottomNavBar({
+    Key? key,
+    required this.selectedIndex,
+    required this.onItemSelected,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(40),
+      ),
+      height: 80,
+      margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildNavItem(Icons.home, 0),
+          _buildNavItem(Icons.groups, 1), // Community
+          _buildNavItem(Icons.style, 2),  // Flash cards
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, int index) {
+    return IconButton(
+      icon: Icon(
+        icon,
+        color: selectedIndex == index ? AppTheme.primaryDark : AppTheme.textSecondary.withOpacity(0.5),
+      ),
+      onPressed: () => onItemSelected(index),
+    );
+  }
+}

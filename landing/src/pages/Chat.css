@@ -1,0 +1,314 @@
+/* Theme variables (light default) */
+:root {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #6b7280;
+  --bot-bg: #f3f4f6;
+  --user-bg: #2563eb;
+  --user-text: #ffffff;
+  --accent: #0cadb5;
+  --shadow: 0 6px 18px rgba(15,23,42,0.04);
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --panel: #0f1724;
+  --text: #e6eef7;
+  --muted: #9aa6b2;
+  --bot-bg: #111827;
+  --user-bg: #0ea5a0;
+  --user-text: #022023;
+  --accent: #06b6d4;
+  --shadow: 0 6px 24px rgba(2,6,23,0.6);
+}
+
+/* apply background and panel using variables */
+.chat-container {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* header and footer panels */
+.chat-header,
+.chat-footer,
+aside {
+  background: var(--panel);
+}
+
+/* Container tweaks */
+.chat-container {
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.chat-header {
+  position: relative;
+  z-index: 2;
+  transition: transform 240ms ease, box-shadow 240ms ease;
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(37,99,235,0.08);
+}
+
+.chat-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37,99,235,0.08);
+}
+
+/* Messages area */
+.chat-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+
+/* Row wrapper */
+.chat-row {
+  width: 100%;
+  align-items: flex-end;
+}
+
+/* Chat bubble base and variants */
+.chat-bubble {
+  display: inline-block;
+  word-wrap: break-word;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+  animation: fadeIn 240ms ease both;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+/* Entrance animations */
+.slide-in-left {
+  transform-origin: left center;
+  animation: slideInFromLeft 340ms cubic-bezier(.22,1,.36,1) both;
+}
+.slide-in-right {
+  transform-origin: right center;
+  animation: slideInFromRight 340ms cubic-bezier(.22,1,.36,1) both;
+}
+
+/* Bot bubble */
+.chat-bubble.bot {
+  background: var(--bot-bg);
+  color: var(--text);
+  border-radius: 12px;
+  border-bottom-left-radius: 6px;
+  max-width: 72%;
+  box-shadow: var(--shadow);
+}
+
+/* User bubble */
+.chat-bubble.user {
+  background: var(--user-bg);
+  color: var(--user-text);
+  border-radius: 12px;
+  border-bottom-right-radius: 6px;
+  max-width: 72%;
+  box-shadow: var(--shadow);
+}
+
+/* Typing bubble style */
+.chat-bubble.typing {
+  background: rgba(59,130,246,0.12); /* soft blue tint for typing to feel different */
+  color: #0f172a;
+  font-style: normal;
+}
+
+/* Typing dots */
+.typing-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 18px;
+}
+.typing-dots span {
+  width: 6px;
+  height: 6px;
+  background: rgba(17,24,39,0.5);
+  border-radius: 50%;
+  display: inline-block;
+  transform: translateY(0);
+  animation: typingDot 900ms infinite ease-in-out;
+}
+.typing-dots span:nth-child(2) { animation-delay: 150ms; }
+.typing-dots span:nth-child(3) { animation-delay: 300ms; }
+
+/* Input focus */
+.chat-input:focus {
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+  transform: translateY(-1px);
+}
+
+/* Send button micro-interaction */
+.chat-send-btn {
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+.chat-send-btn:active {
+  transform: translateY(2px) scale(0.995);
+  box-shadow: 0 6px 14px rgba(37,99,235,0.12) inset;
+}
+.chat-send-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Subtle fade for new messages */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide in keyframes */
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-12px) scale(.995); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(12px) scale(.995); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* Typing dot animation */
+@keyframes typingDot {
+  0% { transform: translateY(0); opacity: 0.4; }
+  25% { transform: translateY(-4px); opacity: 1; }
+  50% { transform: translateY(0); opacity: 0.6; }
+  100% { transform: translateY(0); opacity: 0.4; }
+}
+
+/* Avatar for bot (Saathi logo) */
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+/* Slight adjustment so avatar doesn't overlap bubble on small screens */
+@media (max-width: 640px) {
+  .chat-avatar { width: 32px; height: 32px; margin-right: 10px; }
+  .chat-bubble { max-width: 82%; }
+}
+
+/* New Chat button styles */
+.new-chat-btn {
+  background: linear-gradient(90deg,#06b6d4 0%,#0ea5a0 100%); /* teal/cyan gradient */
+  color: white;
+  transition: transform .18s ease, box-shadow .18s ease;
+  will-change: transform;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle floating movement */
+.new-chat-btn {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+/* hover/active micro-interactions */
+.new-chat-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.14);
+}
+.new-chat-btn:active {
+  transform: translateY(0) scale(.995);
+}
+
+/* soft glow pulse behind the button */
+.new-chat-btn::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  background: radial-gradient(circle at 20% 20%, rgba(14,165,164,0.14), transparent 25%),
+              radial-gradient(circle at 80% 80%, rgba(6,182,212,0.08), transparent 30%);
+  border-radius: 9999px;
+  z-index: -1;
+  opacity: 0.85;
+  filter: blur(8px);
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+
+/* pulse animation to draw attention (subtle) */
+@keyframes pulseGlow {
+  0% { transform: scale(0.98); opacity: 0.85; }
+  50% { transform: scale(1.02); opacity: 0.95; }
+  100% { transform: scale(0.98); opacity: 0.85; }
+}
+.new-chat-btn {
+  animation: floatY 6s ease-in-out infinite, pulseGlow 3.8s ease-in-out infinite;
+}
+
+/* gentle vertical float */
+@keyframes floatY {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ensure SVG icon inherits white color */
+.new-chat-btn svg { color: white; }
+
+/* responsive tweaks for small screens */
+@media (max-width: 640px) {
+  .new-chat-btn { padding-left: 12px; padding-right: 12px; }
+  .aside .new-chat-btn { width: auto; }
+}
+
+/* Mic button styles */
+.mic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 9999px;
+  background: white;
+  color: #065f46; /* dark teal */
+  border: 1px solid rgba(6,95,70,0.06);
+  box-shadow: 0 4px 10px rgba(2,6,23,0.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+  margin-right: 6px;
+}
+.mic-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 20px rgba(2,6,23,0.08); }
+
+/* Active recording state: pulse + red tint */
+.mic-btn.active {
+  background: linear-gradient(90deg, rgba(239,68,68,0.12), rgba(239,68,68,0.08));
+  color: #ef4444; /* red */
+  box-shadow: 0 10px 30px rgba(239,68,68,0.12);
+  animation: micPulse 1.6s ease-in-out infinite;
+}
+
+/* Tiny ripple to hint listening */
+@keyframes micPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.12); }
+  70% { box-shadow: 0 0 0 12px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
+
+/* Live transcript small badge above the input (optional if you want visible preview) */
+.chat-input + .mic-btn + .chat-send-btn + .transcript-preview,
+.chat-input + .mic-btn + .transcript-preview {
+  display: none; /* default hidden unless you explicitly place an element */
+}
+
+/* If you want a visible floating transcript, you can add:
+.transcript-preview {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #374151;
+  text-align: left;
+  opacity: 0.9;
+}
+*/
+
+/* Responsive */
+@media (max-width: 640px) {
+  .mic-btn { width: 38px; height: 38px; }
+}

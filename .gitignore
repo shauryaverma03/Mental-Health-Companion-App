@@ -1,0 +1,8 @@
+.DS_Store
+.env
+node_modules
+serviceAccountKey.json
+.ideakey.properties
+saathi_release.keystore
+app/android/key.properties
+app/android/app/saathi_release.keystore
