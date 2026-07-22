@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saathi/pages/login.dart';
-import 'package:saathi/themes/colors.dart';
 import 'package:saathi/themes/app_theme.dart';
 
 class HeroPage extends StatefulWidget {

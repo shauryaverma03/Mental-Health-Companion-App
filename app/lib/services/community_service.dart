@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:saathi/services/api_helpers.dart';
 
 class CommunityService {
   Future<void> createCommunityMessage(String userId, String message) async {
@@ -16,10 +17,11 @@ class CommunityService {
       if (response.statusCode == 200) {
         print('Message created');
       } else {
-        print('Failed to create message');
+        throw BackendException('Failed to create message', statusCode: response.statusCode);
       }
     } catch (e) {
       print("Error creating messages: $e");
+      rethrow;
     }
   }
 
@@ -36,51 +38,50 @@ class CommunityService {
       if (response.statusCode == 200) {
         print('comment sent');
       } else {
-        print('Failed to send comment');
+        throw BackendException('Failed to send comment', statusCode: response.statusCode);
       }
     } catch (e) {
       print("Error sending comment: $e");
+      rethrow;
     }
   }
 
   Future<List<dynamic>> getCommunityMessages() async {
-    try {
+    return retryWithBackoff(() async {
       final url =
           Uri.parse('https://gen-ai-g6tt.onrender.com/api/v1/community/get');
       final headers = {'Content-Type': 'application/json'};
       final response = await http.get(url, headers: headers);
-      final messages = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        print('Got messages');
-        return messages;
+        final messages = safeJsonDecode(response);
+        if (messages is List) {
+          return messages;
+        } else {
+          throw BackendException('Invalid community messages format', statusCode: response.statusCode);
+        }
       } else {
-        print('Failed to get message');
-        return [];
+        throw BackendException('Failed to get message', statusCode: response.statusCode);
       }
-    } catch (e) {
-      print("Error getting messages: $e");
-      return [];
-    }
+    });
   }
 
   Future<List<dynamic>> getCommunityMessagesById(String userId) async {
-    try {
+    return retryWithBackoff(() async {
       final url = Uri.parse(
           'https://gen-ai-g6tt.onrender.com/api/v1/community/get/$userId');
       final headers = {'Content-Type': 'application/json'};
       final response = await http.get(url, headers: headers);
-      final messages = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        print('got messages');
-        return messages;
+        final messages = safeJsonDecode(response);
+        if (messages is List) {
+          return messages;
+        } else {
+          throw BackendException('Invalid community messages format', statusCode: response.statusCode);
+        }
       } else {
-        print('Failed to get message');
-        return [];
+        throw BackendException('Failed to get message', statusCode: response.statusCode);
       }
-    } catch (e) {
-      print("Error getting messages: $e");
-      return [];
-    }
+    });
   }
 
   Future<void> reportPost(String postId, String reason, String details) async {
@@ -94,6 +95,7 @@ class CommunityService {
       print('Post reported successfully');
     } catch (e) {
       print('Error reporting post: $e');
+      rethrow;
     }
   }
 }

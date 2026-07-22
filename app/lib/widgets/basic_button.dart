@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saathi/themes/colors.dart';
 
 class BasicButton extends StatelessWidget {
   /// BasicButton(text, onPressed)
@@ -32,16 +31,12 @@ class BasicButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Resolve colors: prefer explicit prop, then theme, then a gentle elder light-blue
-    final Color defaultElderLightBlue = const Color(0xFF9ED8F6); // soft light-blue
-
+    // Resolve colors: prefer explicit prop, then theme
     final Color resolvedBg = backgroundColor ??
-        Theme.of(context).colorScheme.primary ??
-        defaultElderLightBlue; // previously used Mint
+        Theme.of(context).colorScheme.primary;
 
     final Color resolvedFg = foregroundColor ??
-        Theme.of(context).colorScheme.onPrimary ??
-        Colors.white;
+        Theme.of(context).colorScheme.onPrimary;
 
     final Color resolvedShadow =
         shadowColor ?? resolvedBg.withOpacity(0.6); // subtle shadow by default

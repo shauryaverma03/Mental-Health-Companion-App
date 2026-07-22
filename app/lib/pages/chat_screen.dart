@@ -16,6 +16,10 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ChatService _chatService = ChatService();
   List<dynamic> _messages = [];
+  bool _isLoading = false;
+  bool _isSending = false;
+  String? _errorMessage;
+
   @override
   void initState() {
     super.initState();
@@ -23,21 +27,28 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> _fetchMessages() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
     try {
       final messages = await _chatService.getMessages(
           '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5', getFormattedDate());
       setState(() {
         _messages = messages;
+        _isLoading = false;
       });
-      print(messages);
     } catch (e) {
-      print('Error fetching messages: $e');
+      setState(() {
+        _isLoading = false;
+        _errorMessage = "Panda's taking a quick nap — try again in a moment!";
+      });
     }
   }
 
   String getFormattedDate() {
     final DateTime now = DateTime.now()
-        .subtract(Duration(hours: 10, minutes: 30)); // nam5(Oklahoma) time
+        .subtract(const Duration(hours: 10, minutes: 30)); // nam5(Oklahoma) time
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(now);
   }
@@ -54,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => DashboardPage(),
+        builder: (context) => const DashboardPage(),
       ),
     );
     return false;
@@ -76,24 +87,51 @@ class _ChatScreenState extends State<ChatScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Expanded(
-                  child: ListView.builder(
-                    reverse: false,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppTheme.spaceMd,
-                      vertical: AppTheme.spaceLg,
-                    ),
-                    itemCount: _messages.length,
-                    itemBuilder: (context, index) {
-                      final message = _messages[index];
-                      print('THis is messae');
-                      print(message);
-                      return MessageBubble(
-                        sender: message['sender'] ?? 'Unknown',
-                        text: message['message'] ?? '',
-                        isMe: message['sender'] != 'Pepo',
-                      );
-                    },
-                  ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(color: AppTheme.primary),
+                        )
+                      : _errorMessage != null
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(AppTheme.spaceLg),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      _errorMessage!,
+                                      textAlign: TextAlign.center,
+                                      style: AppTheme.body.copyWith(color: AppTheme.error),
+                                    ),
+                                    const SizedBox(height: AppTheme.spaceMd),
+                                    ElevatedButton(
+                                      onPressed: _fetchMessages,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppTheme.primary,
+                                        foregroundColor: AppTheme.textOnPrimary,
+                                      ),
+                                      child: const Text('Retry'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : ListView.builder(
+                              reverse: false,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: AppTheme.spaceMd,
+                                vertical: AppTheme.spaceLg,
+                              ),
+                              itemCount: _messages.length,
+                              itemBuilder: (context, index) {
+                                final message = _messages[index];
+                                return MessageBubble(
+                                  sender: message['sender'] ?? 'Unknown',
+                                  text: message['message'] ?? '',
+                                  isMe: message['sender'] != 'Pepo',
+                                );
+                              },
+                            ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(AppTheme.spaceMd),
@@ -113,51 +151,68 @@ class _ChatScreenState extends State<ChatScreen> {
                           decoration: InputDecoration(
                             hintText: 'Type your message here...',
                             hintStyle: AppTheme.body.copyWith(color: AppTheme.textSecondary),
-                            contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: AppTheme.spaceLg),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: AppTheme.spaceLg),
                             filled: true,
                             fillColor: AppTheme.surface,
-                            border: OutlineInputBorder(
+                            border: const OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(AppTheme.radiusPill)),
                               borderSide: BorderSide.none,
                             ),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: AppTheme.primaryPale, width: 1.0),
                               borderRadius: BorderRadius.all(Radius.circular(AppTheme.radiusPill)),
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: AppTheme.primary, width: 2.0),
                               borderRadius: BorderRadius.all(Radius.circular(AppTheme.radiusPill)),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: AppTheme.spaceMd),
+                      const SizedBox(width: AppTheme.spaceMd),
                       ElevatedButton(
-                        onPressed: () async {
-                          final message = _messageController.text;
-                          _messageController.clear();
-                          if (message.isNotEmpty) {
-                            setState(() {
-                              _messages.insert(_messages.length, {
-                                'sender': 'User',
-                                'userId': _userId,
-                                'message': message,
-                                'timestamp':
-                                    DateTime.now().millisecondsSinceEpoch,
-                              });
-                            });
-                            final response = await _chatService.sendMessages(
-                                _userId, message);
-                            setState(() {
-                              _messages.insert(_messages.length, {
-                                'sender': 'Pepo',
-                                'message': response,
-                                'timestamp':
-                                    DateTime.now().millisecondsSinceEpoch,
-                              });
-                            });
-                          }
-                        },
+                        onPressed: _isSending
+                            ? null
+                            : () async {
+                                final messageText = _messageController.text.trim();
+                                if (messageText.isNotEmpty) {
+                                  _messageController.clear();
+                                  final userMsg = {
+                                    'sender': 'User',
+                                    'userId': _userId,
+                                    'message': messageText,
+                                    'timestamp':
+                                        DateTime.now().millisecondsSinceEpoch,
+                                  };
+                                  setState(() {
+                                    _messages.add(userMsg);
+                                    _isSending = true;
+                                  });
+                                  try {
+                                    final response = await _chatService.sendMessages(
+                                        _userId, messageText);
+                                    setState(() {
+                                      _messages.add({
+                                        'sender': 'Pepo',
+                                        'message': response,
+                                        'timestamp':
+                                            DateTime.now().millisecondsSinceEpoch,
+                                      });
+                                    });
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Panda's taking a quick nap — couldn't send message right now!"),
+                                        backgroundColor: AppTheme.error,
+                                      ),
+                                    );
+                                  } finally {
+                                    setState(() {
+                                      _isSending = false;
+                                    });
+                                  }
+                                }
+                              },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.primaryDark,
                           foregroundColor: AppTheme.textOnPrimary,
@@ -165,15 +220,24 @@ class _ChatScreenState extends State<ChatScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(AppTheme.radiusPill),
                           ),
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: AppTheme.spaceXl,
                             vertical: AppTheme.spaceMd,
                           ),
                         ),
-                        child: Text(
-                          'Send',
-                          style: AppTheme.button,
-                        ),
+                        child: _isSending
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: AppTheme.textOnPrimary,
+                                ),
+                              )
+                            : const Text(
+                                'Send',
+                                style: AppTheme.button,
+                              ),
                       ),
                     ],
                   ),
@@ -217,12 +281,12 @@ class MessageBubble extends StatelessWidget {
           ),
           Material(
             borderRadius: isMe
-                ? BorderRadius.only(
+                ? const BorderRadius.only(
                     topLeft: Radius.circular(AppTheme.radiusLg),
                     bottomLeft: Radius.circular(AppTheme.radiusLg),
                     bottomRight: Radius.circular(AppTheme.radiusLg),
                   )
-                : BorderRadius.only(
+                : const BorderRadius.only(
                     topRight: Radius.circular(AppTheme.radiusLg),
                     bottomLeft: Radius.circular(AppTheme.radiusLg),
                     bottomRight: Radius.circular(AppTheme.radiusLg),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:saathi/services/api_helpers.dart';
 
 class ChatService {
   Future<String> sendMessages(String userId, String message) async {
@@ -12,34 +13,32 @@ class ChatService {
       });
       final response = await http.post(url, headers: headers, body: body);
       if (response.statusCode == 200) {
-        print('Message sent');
-        final responseBody = jsonDecode(response.body);
-        return responseBody['botResponse'];
+        final responseBody = safeJsonDecode(response);
+        return responseBody['botResponse'] ?? '';
       } else {
-        print('Failed to send message');
-        return "";
+        throw BackendException('Failed to send message', statusCode: response.statusCode);
       }
     } catch (e) {
       print("Error sending messages: $e");
-      return "";
+      rethrow;
     }
   }
 
   Future<List<dynamic>> getMessages(String userId, String date) async {
-    try {
+    return retryWithBackoff(() async {
       final url = Uri.parse(
           'https://gen-ai-g6tt.onrender.com/api/v1/chat/get/$userId/$date');
       final response = await http.get(url);
       if (response.statusCode == 200) {
-        final messages = jsonDecode(response.body);
-        return messages;
+        final messages = safeJsonDecode(response);
+        if (messages is List) {
+          return messages;
+        } else {
+          throw BackendException('Invalid message list format', statusCode: response.statusCode);
+        }
       } else {
-        print('Failed to get messages');
-        return [];
+        throw BackendException('Failed to get messages', statusCode: response.statusCode);
       }
-    } catch (e) {
-      print("Error getting messages: $e");
-      return [];
-    }
+    });
   }
 }

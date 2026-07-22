@@ -17,6 +17,7 @@ class CommunityPage extends StatefulWidget {
 class _CommunityPageState extends State<CommunityPage> {
   final TextEditingController _controller = TextEditingController();
   List<dynamic> _posts = [];
+  bool _isLoading = false;
   String? _errorMessage;
 
   @override
@@ -26,17 +27,21 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   Future<void> _fetchCommunityMessages() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
     try {
       final communityService = CommunityService();
       final messages = await communityService.getCommunityMessages();
       setState(() {
         _posts = messages;
-        _errorMessage = null;
+        _isLoading = false;
       });
-      // print(messages);
     } catch (e) {
       setState(() {
-        _errorMessage = 'Error fetching community messages: $e';
+        _isLoading = false;
+        _errorMessage = 'Unable to load community messages. Please try again later!';
       });
     }
   }
@@ -63,9 +68,12 @@ class _CommunityPageState extends State<CommunityPage> {
           _controller.clear();
         });
       } catch (e) {
-        setState(() {
-          _errorMessage = 'Error sending message: $e';
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to publish post right now. Please try again!'),
+            backgroundColor: AppTheme.error,
+          ),
+        );
       }
     }
   }
@@ -74,7 +82,7 @@ class _CommunityPageState extends State<CommunityPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => DashboardPage(),
+        builder: (context) => const DashboardPage(),
       ),
     );
     return false;
@@ -99,64 +107,85 @@ class _CommunityPageState extends State<CommunityPage> {
           child: SafeArea(
             child: Column(
               children: <Widget>[
-                if (_errorMessage != null)
-                  Padding(
-                    padding: const EdgeInsets.all(AppTheme.spaceSm),
-                    child: Text(
-                      _errorMessage!,
-                      style: AppTheme.body.copyWith(color: AppTheme.error),
-                    ),
-                  ),
                 Expanded(
-                  child: _posts.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No posts yet. Be the first to contribute!',
-                            style: AppTheme.body.copyWith(color: AppTheme.textSecondary),
-                          ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(color: AppTheme.primary),
                         )
-                      : ListView.builder(
-                          itemCount: _posts.length,
-                          itemBuilder: (context, index) {
-                            final post = _posts[index];
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: AppTheme.spaceSm, horizontal: AppTheme.spaceLg),
-                              decoration: AppTheme.cardDecoration,
+                      : _errorMessage != null
+                          ? Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(AppTheme.spaceMd),
-                                child: ListTile(
-                                  title: Text('Anonymous User', style: AppTheme.heading2),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: AppTheme.spaceXs),
-                                      Text(
-                                        _formatTimestamp(post['timestamp']),
-                                        style: AppTheme.bodySmall.copyWith(color: AppTheme.textSecondary),
+                                padding: const EdgeInsets.all(AppTheme.spaceLg),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      _errorMessage!,
+                                      textAlign: TextAlign.center,
+                                      style: AppTheme.body.copyWith(color: AppTheme.error),
+                                    ),
+                                    const SizedBox(height: AppTheme.spaceMd),
+                                    ElevatedButton(
+                                      onPressed: _fetchCommunityMessages,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppTheme.primary,
+                                        foregroundColor: AppTheme.textOnPrimary,
                                       ),
-                                      const SizedBox(height: AppTheme.spaceSm),
-                                      Text(
-                                        post['message'],
-                                        style: AppTheme.body,
-                                      ),
-                                    ],
+                                      child: const Text('Retry'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : _posts.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    'No posts yet. Be the first to contribute!',
+                                    style: AppTheme.body.copyWith(color: AppTheme.textSecondary),
                                   ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            PostDetailsPage(post: post),
+                                )
+                              : ListView.builder(
+                                  itemCount: _posts.length,
+                                  itemBuilder: (context, index) {
+                                    final post = _posts[index];
+                                    return Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: AppTheme.spaceSm, horizontal: AppTheme.spaceLg),
+                                      decoration: AppTheme.cardDecoration,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(AppTheme.spaceMd),
+                                        child: ListTile(
+                                          title: Text('Anonymous User', style: AppTheme.heading2),
+                                          subtitle: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(height: AppTheme.spaceXs),
+                                              Text(
+                                                _formatTimestamp(post['timestamp']),
+                                                style: AppTheme.bodySmall.copyWith(color: AppTheme.textSecondary),
+                                              ),
+                                              const SizedBox(height: AppTheme.spaceSm),
+                                              Text(
+                                                post['message'],
+                                                style: AppTheme.body,
+                                              ),
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PostDetailsPage(post: post),
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     );
                                   },
                                 ),
-                              ),
-                            );
-                          },
-                        ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(AppTheme.spaceMd),
@@ -175,32 +204,32 @@ class _CommunityPageState extends State<CommunityPage> {
                           decoration: InputDecoration(
                             hintText: 'Write a post...',
                             hintStyle: AppTheme.body.copyWith(color: AppTheme.textSecondary),
-                            contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: AppTheme.spaceLg),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: AppTheme.spaceLg),
                             filled: true,
                             fillColor: AppTheme.surface,
-                            border: OutlineInputBorder(
+                            border: const OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(AppTheme.radiusPill)),
                               borderSide: BorderSide.none,
                             ),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: AppTheme.primaryPale, width: 1.0),
                               borderRadius: BorderRadius.all(Radius.circular(AppTheme.radiusPill)),
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: AppTheme.primary, width: 2.0),
                               borderRadius: BorderRadius.all(Radius.circular(AppTheme.radiusPill)),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: AppTheme.spaceSm),
+                      const SizedBox(width: AppTheme.spaceSm),
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppTheme.primary,
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
-                          icon: Icon(Icons.send, color: AppTheme.textOnPrimary),
+                          icon: const Icon(Icons.send, color: AppTheme.textOnPrimary),
                           onPressed: _addPost,
                         ),
                       ),
