@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- PROJECT TITLE -->
 <div>
   <h1 style="bold">
@@ -117,3 +118,21 @@ Pre-Final Year Students of Btech Computer Engineering -
 3. Mayank
 
 We have created Saathi with our own touch and preferences. Watching many of our close one's into depression is something which can bother any one. This project is close to us and also would be to you!
+=======
+# genai
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+>>>>>>> a87f05d (Added Sleeping Panda)

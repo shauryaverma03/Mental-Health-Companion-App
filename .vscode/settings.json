@@ -1,3 +1,8 @@
 {
+<<<<<<< HEAD
     "java.configuration.updateBuildConfiguration": "interactive"
+=======
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cmake.sourceDirectory": "/Users/shauryaverma/Desktop/gen_ai-main/app/linux"
+>>>>>>> a87f05d (Added Sleeping Panda)
 }
