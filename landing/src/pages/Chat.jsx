@@ -15,7 +15,7 @@ import { doc, getDoc, collection, getDocs, query, where, addDoc, deleteDoc, upda
 const PUBLIC_LOGO = '/otterChat.png';
 
 // --- Configuration ---
-const GEMINI_API_KEY = "AIzaSyBTQu6Q7Pt3GZFnH3xUGFCvmKALYde6HZI";
+const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY || "";
 const PLACEHOLDER_KEY = "YOUR_GEMINI_API_KEY_HERE";
 
 // --- ChatBubble Component (no changes) ---
@@ -183,7 +183,7 @@ export default function Chatbot() {
   // Check if the client is initialized (no change)
   useEffect(() => {
     if (!genModel) {
-      setError("Please add your Google AI Studio API key to the code.");
+      setError("Please configure REACT_APP_GEMINI_API_KEY in your environment (.env file).");
     } else {
       setError(null);
     }
